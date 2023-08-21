@@ -1,7 +1,7 @@
-# 1.0.4版本
+# Version 1.0.4
 
-1. 执行写入数据操作时，使用流式参数stream来优化性能
+1. Use the stream parameter stream to optimize performance when performing write data operations.
 
-# 1.0.3版本
+# 1.0.3 Version
 
-1. 将模块的图标文件信息，改为完整路径字符串
+1. Change the module icon file information to a full path string.

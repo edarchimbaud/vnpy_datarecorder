@@ -8,12 +8,7 @@ from typing import Any, Dict, List, Optional
 from vnpy.event import Event, EventEngine
 from vnpy.trader.engine import BaseEngine, MainEngine
 from vnpy.trader.constant import Exchange
-from vnpy.trader.object import (
-    SubscribeRequest,
-    TickData,
-    BarData,
-    ContractData
-)
+from vnpy.trader.object import SubscribeRequest, TickData, BarData, ContractData
 from vnpy.trader.event import EVENT_TICK, EVENT_CONTRACT, EVENT_TIMER
 from vnpy.trader.utility import load_json, save_json, BarGenerator
 from vnpy.trader.database import BaseDatabase, get_database
@@ -67,10 +62,7 @@ class RecorderEngine(BaseEngine):
 
     def save_setting(self) -> None:
         """"""
-        setting: dict = {
-            "tick": self.tick_recordings,
-            "bar": self.bar_recordings
-        }
+        setting: dict = {"tick": self.tick_recordings, "bar": self.bar_recordings}
         save_json(self.setting_filename, setting)
 
     def run(self) -> None:
@@ -110,19 +102,19 @@ class RecorderEngine(BaseEngine):
     def add_bar_recording(self, vt_symbol: str) -> None:
         """"""
         if vt_symbol in self.bar_recordings:
-            self.write_log(f"已在K线记录列表中：{vt_symbol}")
+            self.write_log(f"Already in the list of K-line records: {vt_symbol}")
             return
 
         if Exchange.LOCAL.value not in vt_symbol:
             contract: Optional[ContractData] = self.main_engine.get_contract(vt_symbol)
             if not contract:
-                self.write_log(f"找不到合约：{vt_symbol}")
+                self.write_log(f"Contract not found: {vt_symbol}")
                 return
 
             self.bar_recordings[vt_symbol] = {
                 "symbol": contract.symbol,
                 "exchange": contract.exchange.value,
-                "gateway_name": contract.gateway_name
+                "gateway_name": contract.gateway_name,
             }
 
             self.subscribe(contract)
@@ -132,25 +124,25 @@ class RecorderEngine(BaseEngine):
         self.save_setting()
         self.put_event()
 
-        self.write_log(f"添加K线记录成功：{vt_symbol}")
+        self.write_log(f"K-line record added successfully: {vt_symbol}")
 
     def add_tick_recording(self, vt_symbol: str) -> None:
         """"""
         if vt_symbol in self.tick_recordings:
-            self.write_log(f"已在Tick记录列表中：{vt_symbol}")
+            self.write_log(f"Already in the Tick record list: {vt_symbol}")
             return
 
         # For normal contract
         if Exchange.LOCAL.value not in vt_symbol:
             contract: Optional[ContractData] = self.main_engine.get_contract(vt_symbol)
             if not contract:
-                self.write_log(f"找不到合约：{vt_symbol}")
+                self.write_log(f"Contract not found: {vt_symbol}")
                 return
 
             self.tick_recordings[vt_symbol] = {
                 "symbol": contract.symbol,
                 "exchange": contract.exchange.value,
-                "gateway_name": contract.gateway_name
+                "gateway_name": contract.gateway_name,
             }
 
             self.subscribe(contract)
@@ -161,31 +153,31 @@ class RecorderEngine(BaseEngine):
         self.save_setting()
         self.put_event()
 
-        self.write_log(f"添加Tick记录成功：{vt_symbol}")
+        self.write_log(f"Tick record added successfully: {vt_symbol}")
 
     def remove_bar_recording(self, vt_symbol: str) -> None:
         """"""
         if vt_symbol not in self.bar_recordings:
-            self.write_log(f"不在K线记录列表中：{vt_symbol}")
+            self.write_log(f"Not in the list of K-line records: {vt_symbol}")
             return
 
         self.bar_recordings.pop(vt_symbol)
         self.save_setting()
         self.put_event()
 
-        self.write_log(f"移除K线记录成功：{vt_symbol}")
+        self.write_log(f"Remove K-Line Record Successful: {vt_symbol}")
 
     def remove_tick_recording(self, vt_symbol: str) -> None:
         """"""
         if vt_symbol not in self.tick_recordings:
-            self.write_log(f"不在Tick记录列表中：{vt_symbol}")
+            self.write_log(f"Not in Tick record list: {vt_symbol}")
             return
 
         self.tick_recordings.pop(vt_symbol)
         self.save_setting()
         self.put_event()
 
-        self.write_log(f"移除Tick记录成功：{vt_symbol}")
+        self.write_log(f"Removal of Tick record successful: {vt_symbol}")
 
     def register_event(self) -> None:
         """"""
@@ -228,7 +220,7 @@ class RecorderEngine(BaseEngine):
         contract: ContractData = event.data
         vt_symbol: str = contract.vt_symbol
 
-        if (vt_symbol in self.tick_recordings or vt_symbol in self.bar_recordings):
+        if vt_symbol in self.tick_recordings or vt_symbol in self.bar_recordings:
             self.subscribe(contract)
 
     def process_spread_event(self, event: Event) -> None:
@@ -242,10 +234,7 @@ class RecorderEngine(BaseEngine):
 
     def write_log(self, msg: str) -> None:
         """"""
-        event: Event = Event(
-            EVENT_RECORDER_LOG,
-            msg
-        )
+        event: Event = Event(EVENT_RECORDER_LOG, msg)
         self.event_engine.put(event)
 
     def put_event(self) -> None:
@@ -256,15 +245,9 @@ class RecorderEngine(BaseEngine):
         bar_symbols: List[str] = list(self.bar_recordings.keys())
         bar_symbols.sort()
 
-        data: dict = {
-            "tick": tick_symbols,
-            "bar": bar_symbols
-        }
+        data: dict = {"tick": tick_symbols, "bar": bar_symbols}
 
-        event: Event = Event(
-            EVENT_RECORDER_UPDATE,
-            data
-        )
+        event: Event = Event(EVENT_RECORDER_UPDATE, data)
         self.event_engine.put(event)
 
     def record_tick(self, tick: TickData) -> None:
@@ -288,7 +271,6 @@ class RecorderEngine(BaseEngine):
     def subscribe(self, contract: ContractData) -> None:
         """"""
         req: SubscribeRequest = SubscribeRequest(
-            symbol=contract.symbol,
-            exchange=contract.exchange
+            symbol=contract.symbol, exchange=contract.exchange
         )
         self.main_engine.subscribe(req, contract.gateway_name)

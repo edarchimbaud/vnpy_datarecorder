@@ -1,4 +1,4 @@
-# VeighNa框架的行情录制模块
+# Ticker Recording Module for VeighNa Framework
 
 <p align="center">
   <img src ="https://vnpy.oss-cn-shanghai.aliyuncs.com/vnpy-logo.png"/>
@@ -11,24 +11,24 @@
     <img src ="https://img.shields.io/github/license/vnpy/vnpy.svg?color=orange"/>
 </p>
 
-## 说明
+## Description
 
-DataRecorder是用于实时行情记录的模块，用户可以利用该模块记录实时Tick数据和K线数据，并自动写入保存到数据库中。
+DataRecorder is a module for real-time quote recording, users can use this module to record real-time tick data and K-line data, and automatically write and save them to the database.
 
-记录的数据可以通过DataManager模块查看，也可以用于CtaBacktester的历史回测，以及CtaStrategy、PortfolioStrategy等策略的实盘初始化。
+The recorded data can be viewed through the DataManager module, and can also be used for historical backtesting of CtaBacktester, as well as the initialization of CtaStrategy, PortfolioStrategy and other strategies for live trading.
 
-## 安装
+## Installation
 
-安装环境推荐基于3.0.0版本以上的【[**VeighNa Studio**](https://www.vnpy.com)】。
+The installation environment is recommended to be based on [[**VeighNa Studio**](https://edarchimbaud.com/veighna-website)] above version 3.0.0.
 
-直接使用pip命令：
+Use pip command directly:
 
 ```
 pip install vnpy_datarecorder
 ```
 
 
-或者下载源代码后，解压后在cmd中运行：
+Or download the source code, unzip it and run it in cmd:
 
 ```
 pip install .
