@@ -13,7 +13,7 @@
 
 ## Description
 
-DataRecorder is a module for real-time quote recording, users can use this module to record real-time tick data and K-line data, and automatically write and save them to the database.
+DataRecorder is a module for real-time quote recording, users can use this module to record real-time tick data and bar data, and automatically write and save them to the database.
 
 The recorded data can be viewed through the DataManager module, and can also be used for historical backtesting of CtaBacktester, as well as the initialization of CtaStrategy, PortfolioStrategy and other strategies for live trading.
 

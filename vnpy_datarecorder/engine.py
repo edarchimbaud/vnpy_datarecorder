@@ -102,7 +102,7 @@ class RecorderEngine(BaseEngine):
     def add_bar_recording(self, vt_symbol: str) -> None:
         """"""
         if vt_symbol in self.bar_recordings:
-            self.write_log(f"Already in the list of K-line records: {vt_symbol}")
+            self.write_log(f"Already in the list of bar records: {vt_symbol}")
             return
 
         if Exchange.LOCAL.value not in vt_symbol:
@@ -124,7 +124,7 @@ class RecorderEngine(BaseEngine):
         self.save_setting()
         self.put_event()
 
-        self.write_log(f"K-line record added successfully: {vt_symbol}")
+        self.write_log(f"bar record added successfully: {vt_symbol}")
 
     def add_tick_recording(self, vt_symbol: str) -> None:
         """"""
@@ -158,14 +158,14 @@ class RecorderEngine(BaseEngine):
     def remove_bar_recording(self, vt_symbol: str) -> None:
         """"""
         if vt_symbol not in self.bar_recordings:
-            self.write_log(f"Not in the list of K-line records: {vt_symbol}")
+            self.write_log(f"Not in the list of bar records: {vt_symbol}")
             return
 
         self.bar_recordings.pop(vt_symbol)
         self.save_setting()
         self.put_event()
 
-        self.write_log(f"Remove K-Line Record Successful: {vt_symbol}")
+        self.write_log(f"Remove Bar Record Successful: {vt_symbol}")
 
     def remove_tick_recording(self, vt_symbol: str) -> None:
         """"""

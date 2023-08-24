@@ -83,7 +83,7 @@ class RecorderManager(QtWidgets.QWidget):
 
         # Set layout
         grid: QtWidgets.QGridLayout = QtWidgets.QGridLayout()
-        grid.addWidget(QtWidgets.QLabel("K-Line Record"), 0, 0)
+        grid.addWidget(QtWidgets.QLabel("Bar Record"), 0, 0)
         grid.addWidget(add_bar_button, 0, 1)
         grid.addWidget(remove_bar_button, 0, 2)
         grid.addWidget(QtWidgets.QLabel("Tick records"), 1, 0)
@@ -101,7 +101,7 @@ class RecorderManager(QtWidgets.QWidget):
         hbox.addStretch()
 
         grid2: QtWidgets.QGridLayout = QtWidgets.QGridLayout()
-        grid2.addWidget(QtWidgets.QLabel("K-Line record list"), 0, 0)
+        grid2.addWidget(QtWidgets.QLabel("Bar record list"), 0, 0)
         grid2.addWidget(QtWidgets.QLabel("Tick record list"), 0, 1)
         grid2.addWidget(self.bar_recording_edit, 1, 0)
         grid2.addWidget(self.tick_recording_edit, 1, 1)
