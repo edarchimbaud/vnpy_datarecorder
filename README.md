@@ -19,7 +19,7 @@ The recorded data can be viewed through the DataManager module, and can also be 
 
 ## Installation
 
-The installation environment is recommended to be based on [[**VeighNa Studio**](https://edarchimbaud.com/veighna-website)] above version 3.0.0.
+The installation environment is recommended to be based on [[**VeighNa Studio**](https://github.com/paperswithbacktest/vnpy)] above version 3.0.0.
 
 Use pip command directly:
 
